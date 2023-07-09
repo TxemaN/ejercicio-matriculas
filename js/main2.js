@@ -67,36 +67,26 @@ const arrayConductores = [
 ];
 
 
-
-
 let matricula = document.querySelector("#matriculaIntroducida").value;
 
-
-const getConductor=async(matricula)=>{
-  matricula= document.querySelector("#matriculaIntroducida").value;
-  const nombre=arrayConductores.find((item)=>item.matricula===matricula)?.nombre
-	if(nombre) return(`El vehículo con matrícula ${matricula} tiene multa`);
-	else throw(`El vehículo con matrícula ${matricula} no tiene multa`)
-		
+const getConductor = (matriculilla) => {
+  matriculilla = document.querySelector("#matriculaIntroducida").value;
+  const nombre = arrayConductores.find((item) => item.matricula == matriculilla)?.nombre
+  return new Promise((resolve, reject) => {
+    if (nombre) resolve(`El vehículo con matrícula ${matriculilla} tiene multa`);
+    else reject(`El vehículo con matrícula ${matriculilla} no tiene multa`)
+  })
 }
 
+getConductor()
+  .then((respuesta) => {
+    fraseExisteOMalEscrita.textContent = respuesta
+    subirArrayLocal()
+  })
 
-const getInfoConductor=async(matricula)=>{
-  try{
-    const matriculilla=await getConductor(matricula);
-    
-    
-    return `El vehículo con matrícula ${matriculilla} tiene multa`
-
-  }catch(error){
-throw error
-  }
-}
-
-getInfoConductor(matricula)
-.then((respuesta)=>{console.log(respuesta)})
-.catch((error)=>{console.log(error)})
-
+  .catch((error) => {
+    fraseExisteOMalEscrita.textContent = error
+  })
 
 //RELLENAR ARRAY LOCAL//
 const subirArrayLocal = (matriculilla) => {
