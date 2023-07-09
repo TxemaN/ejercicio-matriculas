@@ -24,10 +24,9 @@ form.addEventListener('submit', (ev) => {
   }
 
   if (validado) {
-   
     // subirArrayLocal() SUBIR A LOCAL FUNCIONA
     getConductor()
-    
+   
   }
 
   form.reset()
@@ -65,38 +64,27 @@ const arrayConductores = [
 ];
 
 
-
-
 let matricula = document.querySelector("#matriculaIntroducida").value;
 
-
-const getConductor=async(matricula)=>{
-  matricula= document.querySelector("#matriculaIntroducida").value;
-  const nombre=arrayConductores.find((item)=>item.matricula==matricula)?.nombre
-	if(nombre) return(`El vehículo con matrícula ${matricula} tiene multa`);
-	else throw(`El vehículo con matrícula ${matricula} no tiene multa`)
-		
+const getConductor = (matriculilla) => {
+  matriculilla = document.querySelector("#matriculaIntroducida").value;
+  const nombre = arrayConductores.find((item) => item.matricula == matriculilla)?.nombre
+  return new Promise((resolve, reject) => {
+    if (nombre) resolve(`El vehículo con matrícula ${matriculilla} tiene multa`);
+    else reject(`El vehículo con matrícula ${matriculilla} no tiene multa`)
+  })
 }
 
+getConductor()
+  .then((respuesta) => {
+    fraseExisteOMalEscrita.textContent = respuesta
+   return subirArrayLocal()
+  })
 
-const getInfoConductor=async(matricula)=>{
-  try{
-    const matriculilla=await getConductor(matricula);
+  .catch((error) => {
+    fraseExisteOMalEscrita.textContent = error
     
-    
-    return `El vehículo con matrícula ${matriculilla} tiene multa`
-
-  }catch(error){
-throw error
-  }
-}
-
-getInfoConductor(matricula)
-.then((respuesta)=>{multasAcumuladas.innerHTML =respuesta;
-  subirArrayLocal ()})
-.catch((error)=>{existeOMalEscrita.innerHTML =error})
-
-
+  })
 
 //RELLENAR ARRAY LOCAL//
 const subirArrayLocal = (matriculilla) => {
@@ -121,10 +109,9 @@ const pintarMultas = () => {
   multasAcumuladas.innerHTML = ""
   arrayMultas.forEach((item) => {
     const nuevaMulta = document.createElement("P");
-    nuevaMulta.textContent = `${item.matricula} ${item.modelo} ${item.nombre} ${item.multa}`;
+    nuevaMulta.innerHTML = `${item.matricula} ${item.modelo} ${item.nombre} ${item.multa}`;
     fragment.append(nuevaMulta);
   })
   multasAcumuladas.append(fragment);
 };
 pintarMultas()
-console.log(arrayMultas)
