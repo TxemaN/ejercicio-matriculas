@@ -24,12 +24,10 @@ form.addEventListener('submit', (ev) => {
   }
 
   if (validado) {
-
-    let mensaje = ""
-
-    existeOMalEscrita.textContent = mensaje
+   
+    // subirArrayLocal() SUBIR A LOCAL FUNCIONA
     getConductor()
-
+    
   }
 
   form.reset()
@@ -40,7 +38,7 @@ form.addEventListener('submit', (ev) => {
 
 //ESTO PPARA LA VALIDACION
 const regExp = {
-  matricula: /\d\d\d-[A-Za-z]/i,
+  matricula: /\d\d\d-[A-Za-z]{1}$/i,
 }
 
 
@@ -74,7 +72,7 @@ let matricula = document.querySelector("#matriculaIntroducida").value;
 
 const getConductor=async(matricula)=>{
   matricula= document.querySelector("#matriculaIntroducida").value;
-  const nombre=arrayConductores.find((item)=>item.matricula===matricula)?.nombre
+  const nombre=arrayConductores.find((item)=>item.matricula==matricula)?.nombre
 	if(nombre) return(`El vehículo con matrícula ${matricula} tiene multa`);
 	else throw(`El vehículo con matrícula ${matricula} no tiene multa`)
 		
@@ -94,8 +92,10 @@ throw error
 }
 
 getInfoConductor(matricula)
-.then((respuesta)=>{console.log(respuesta)})
-.catch((error)=>{console.log(error)})
+.then((respuesta)=>{multasAcumuladas.innerHTML =respuesta;
+  subirArrayLocal ()})
+.catch((error)=>{existeOMalEscrita.innerHTML =error})
+
 
 
 //RELLENAR ARRAY LOCAL//
@@ -105,10 +105,10 @@ const subirArrayLocal = (matriculilla) => {
 
   if (!coincidencia) {
     arrayMultas.push({
-      matricula: elemento.matricula,
-      modelo: elemento.modelo,
-      nombre: elemento.nombre,
-      multa: elemento.multa
+      matricula: matriculilla,
+      nombre: arrayConductores.find((item) => item.matricula == matriculilla)?.nombre,
+      multa: arrayConductores.find((item) => item.matricula == matriculilla)?.multa,
+      modelo: arrayConductores.find((item) => item.matricula == matriculilla)?.modelo
     })
 
     localStorage.setItem("comprobadosArray", JSON.stringify(arrayMultas));
@@ -127,3 +127,4 @@ const pintarMultas = () => {
   multasAcumuladas.append(fragment);
 };
 pintarMultas()
+console.log(arrayMultas)

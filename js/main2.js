@@ -24,12 +24,9 @@ form.addEventListener('submit', (ev) => {
   }
 
   if (validado) {
-
-    let mensaje = ""
-
-    existeOMalEscrita.textContent = mensaje
+    // subirArrayLocal() SUBIR A LOCAL FUNCIONA
     getConductor()
-
+   
   }
 
   form.reset()
@@ -40,7 +37,7 @@ form.addEventListener('submit', (ev) => {
 
 //ESTO PPARA LA VALIDACION
 const regExp = {
-  matricula: /\d\d\d-[A-Za-z]/i,
+  matricula: /\d\d\d-[A-Za-z]{1}$/i,
 }
 
 
@@ -81,11 +78,12 @@ const getConductor = (matriculilla) => {
 getConductor()
   .then((respuesta) => {
     fraseExisteOMalEscrita.textContent = respuesta
-    subirArrayLocal()
+   return subirArrayLocal()
   })
 
   .catch((error) => {
     fraseExisteOMalEscrita.textContent = error
+    
   })
 
 //RELLENAR ARRAY LOCAL//
@@ -95,10 +93,10 @@ const subirArrayLocal = (matriculilla) => {
 
   if (!coincidencia) {
     arrayMultas.push({
-      matricula: elemento.matricula,
-      modelo: elemento.modelo,
-      nombre: elemento.nombre,
-      multa: elemento.multa
+      matricula: matriculilla,
+      nombre: arrayConductores.find((item) => item.matricula == matriculilla)?.nombre,
+      multa: arrayConductores.find((item) => item.matricula == matriculilla)?.multa,
+      modelo: arrayConductores.find((item) => item.matricula == matriculilla)?.modelo
     })
 
     localStorage.setItem("comprobadosArray", JSON.stringify(arrayMultas));
@@ -111,7 +109,7 @@ const pintarMultas = () => {
   multasAcumuladas.innerHTML = ""
   arrayMultas.forEach((item) => {
     const nuevaMulta = document.createElement("P");
-    nuevaMulta.textContent = `${item.matricula} ${item.modelo} ${item.nombre} ${item.multa}`;
+    nuevaMulta.innerHTML = `${item.matricula} ${item.modelo} ${item.nombre} ${item.multa}`;
     fragment.append(nuevaMulta);
   })
   multasAcumuladas.append(fragment);
