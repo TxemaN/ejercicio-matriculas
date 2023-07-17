@@ -1,14 +1,10 @@
 const existeOMalEscrita = document.querySelector("#existeOMalEscrita")
 const fraseExisteOMalEscrita = document.querySelector("#fraseExisteOMalEscrita")
-
 const multasAcumuladas = document.querySelector("#multasAcumuladas")
 const form = document.querySelector("#formulario")
 let matriculaIntroducida = document.querySelector("#matriculaIntroducida")
 const fragment = document.createDocumentFragment();
-
-
 let arrayMultas = JSON.parse(localStorage.getItem("comprobadosArray")) || []
-
 
 
 //EVENTO SUBMIT//
@@ -43,14 +39,9 @@ const verificar = (matricula) => {
       }).catch((error) => { existeOMalEscrita.innerHTML = error })
     form.reset()
   }
-
-
-
 }
+
 const validar = (matriculilla) => {
-
-
-
   if (!regExp.matricula.test(matriculilla)) {
     return false;
   } else {
@@ -90,9 +81,6 @@ const getInfoConductor = async (matricula) => {
     throw error
   }
 }
-
-
-
 
 
 //RELLENAR ARRAY LOCAL//

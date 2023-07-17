@@ -1,15 +1,10 @@
 const existeOMalEscrita = document.querySelector("#existeOMalEscrita")
 const fraseExisteOMalEscrita = document.querySelector("#fraseExisteOMalEscrita")
-
 const multasAcumuladas = document.querySelector("#multasAcumuladas")
 const form = document.querySelector("#formulario")
 let matriculaIntroducida = document.querySelector("#matriculaIntroducida")
 const fragment = document.createDocumentFragment();
-
-
 let arrayMultas = JSON.parse(localStorage.getItem("comprobadosArray")) || []
-
-
 
 //EVENTO SUBMIT//
 form.addEventListener('submit', (ev) => {
@@ -18,7 +13,6 @@ form.addEventListener('submit', (ev) => {
   verificar(matricula)
 }
 );
-
 
 //ESTO PPARA LA VALIDACION
 const regExp = {
@@ -52,7 +46,7 @@ const verificar = (matricula) => {
 }
 const validar = (matriculilla) => {
 
-  
+
 
   if (!regExp.matricula.test(matriculilla)) {
     return false;
@@ -71,8 +65,6 @@ const arrayConductores = [
 ];
 
 
-
-
 const getConductor = (matriculilla) => {
   matriculilla = matriculaIntroducida.value;
   const nombre = arrayConductores.find((item) => item.matricula == matriculilla)?.nombre
@@ -83,12 +75,9 @@ const getConductor = (matriculilla) => {
 }
 
 
-
-
-
 //RELLENAR ARRAY LOCAL//
 const subirArrayLocal = (matricula) => {
-  
+
   const coincidencia = arrayMultas.find((elemento) => elemento.matricula == matricula)
 
   if (!coincidencia) {
@@ -106,18 +95,18 @@ const subirArrayLocal = (matricula) => {
 //PINTARLO EN LA WEB
 
 const pintarMultas = () => {
-  multasAcumuladas.innerHTML=""
+  multasAcumuladas.innerHTML = ""
   arrayMultas.forEach((item) => {
     const nuevalinea = document.createElement("TR");
     const nuevaMatricula = document.createElement("TD");
-    nuevaMatricula.textContent = `${item.matricula}`;  
+    nuevaMatricula.textContent = `${item.matricula}`;
     const nuevoModelo = document.createElement("TD");
-    nuevoModelo.textContent= `${item.modelo}`
+    nuevoModelo.textContent = `${item.modelo}`
     const nuevoNombre = document.createElement("TD");
-    nuevoNombre.textContent=`${item.nombre}`
+    nuevoNombre.textContent = `${item.nombre}`
     const nuevaMulta = document.createElement("TD");
-    nuevaMulta.textContent=`${item.multa}`
-    
+    nuevaMulta.textContent = `${item.multa}`
+
     nuevalinea.append(nuevaMatricula);
     fragment.append(nuevalinea, nuevaMatricula, nuevoModelo, nuevoNombre, nuevaMulta)
   })
