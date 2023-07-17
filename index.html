@@ -1,30 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprobar matricula</title>
     <link rel="stylesheet" href="css/mystyle.css">
 </head>
+
 <body>
-<section id="existeOMalEscrita">
-<p id="fraseExisteOMalEscrita"></p>
-</section>
+    <header>
+        <h1>Compruebe si su vehículo tiene multas pendientes</h1>
+    
 
-<section id="introducirMatricula">
-    <form action="" method="get" id="formulario">
-<label for="matriculaIntroducida">Introduzca su matrícula</label>
-<input type="text" id="matriculaIntroducida" name="matriculaIntroducida">
-<input type="submit">
+    <section id="introducirMatricula" class="cabecera">
+        <form action="" method="get" id="formulario">
+            <label for="matriculaIntroducida">Introduzca su matrícula</label>
+            <input type="text" id="matriculaIntroducida" name="matriculaIntroducida">
+            <input type="submit">
 
-    </form>
+        </form>
+       
+    </header>
+    <main>
+        <section id="existeOMalEscrita" class="cabecera">
+        
+            <p id="fraseExisteOMalEscrita"></p>
+        </section>
+    </section>
+    <section class="flexContainer">
+        <table>
+        <thead>
+            <tr>
+                <th>Matrícula</th>
+                <th>Modelo</th>
+                <th>Propietario</th>
+                <th>Multa</th>
+            </tr>
+        </thead>
 
-</section>
+        
+    </section>
+    <tbody id="multasAcumuladas">
 
-<section id="multasAcumuladas">
-
-</section>
-
- <script src="js/main2.js"></script>   
+    </tbody>
+</table>
+</main>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

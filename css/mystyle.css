@@ -1,0 +1,40 @@
+* {
+
+   border: none;
+   margin: 0;
+}
+p{
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+table, th, td {
+    border: 1px solid;
+    text-align: center;
+    
+  }
+  .flexContainer {
+   display: flex;
+   flex-wrap: wrap;
+   width: 100%;
+   justify-content: center;
+   gap: 5%;
+}
+.cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  gap: 5%;
+}
+table {
+  width: 100%;
+}
+
+th {
+  height: 2rem;
+}
+header{
+  background-color: rgb(235, 135, 135);
+}
