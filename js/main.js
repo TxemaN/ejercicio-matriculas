@@ -40,8 +40,7 @@ const verificar = (matricula) => {
         multasAcumuladas.innerHTML = respuesta;
         subirArrayLocal(matricula)
         pintarMultas(matricula)
-      })
-      .catch((error) => { existeOMalEscrita.innerHTML = error })
+      }).catch((error) => { existeOMalEscrita.innerHTML = error })
     form.reset()
   }
 
